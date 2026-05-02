@@ -62,7 +62,7 @@
     <meta property="og:description" content="The oldest running legacy console server with the first having proper auth system.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lce.kowhaifan.net">
-    <meta property="og:image" content="assets/icon/banner.png">
+    <meta property="og:image" content="assets/icon/favicon.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Kowhaifan's Clubhouse">
     <meta name="twitter:description" content="The oldest running legacy console server with the first having proper auth system.">
@@ -854,6 +854,56 @@
         padding: 10px;
     }
 
+    /* STATUS INDICATOR ANIMATIONS */
+    @keyframes pulse-green {
+        0% { box-shadow: 0 0 0 0 rgba(85, 255, 85, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(85, 255, 85, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(85, 255, 85, 0); }
+    }
+    
+    @keyframes pulse-red {
+        0% { box-shadow: 0 0 0 0 rgba(255, 85, 85, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(255, 85, 85, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 85, 85, 0); }
+    }
+
+    .status-dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+    .status-dot.online {
+        background-color: #55ff55;
+        animation: pulse-green 2s infinite;
+    }
+
+    .status-dot.offline {
+        background-color: #ff5555;
+        animation: pulse-red 2s infinite;
+    }
+
+    .server-status-banner {
+        background: #2a2a2a; 
+        border: 2px solid #3a3a3a; 
+        padding: 15px 20px; 
+        border-radius: 4px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        margin-bottom: 15px; 
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    @media (max-width: 768px) {
+        .server-status-banner {
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+
     </style>
     <script src="turnstile/v0/api.js" async defer></script>
 </head>
@@ -922,6 +972,20 @@
             </div>
 
             <div class="server-ip-box">
+                <!-- NEW FORMATTED PLAYER COUNT CHECK BANNER -->
+                <div class="server-status-banner">
+                    <div class="ip-line" style="display: flex; align-items: center;">
+                        <span id="status-indicator" class="status-dot offline"></span>
+                        <span class="label" style="margin-right: 5px;">Status:</span>
+                        <span id="server-status" class="value" style="color: #ff5555; text-transform: uppercase;">Offline</span>
+                    </div>
+                    <div class="ip-line" style="display: flex; align-items: center; background: #1a1a1a; padding: 6px 16px; border-radius: 20px; border: 2px solid #3a3a3a;">
+                        <i class="fas fa-users" style="color: #b0b0b0; margin-right: 8px;"></i>
+                        <span class="label" style="margin-right: 5px;">Players:</span>
+                        <span id="player-count" class="value" style="color: #ffb74d; font-size: 1.3rem;">0</span>
+                    </div>
+                </div>
+
                 <div class="ip-info-row" style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
                     <div class="ip-line">
                     <span class="label">IP:</span>
@@ -937,7 +1001,7 @@
                     <span class="label">Port:</span>
                     <span class="value">25565</span>
                 </div>
-                <button class="copy-btn" onclick="copyToClipboard('1026', this)" style="flex-shrink: 0;">
+                <button class="copy-btn" onclick="copyToClipboard('25565', this)" style="flex-shrink: 0;">
                 <i class="fas fa-copy"></i> Copy Port
                 </button>
             </div>
@@ -1045,6 +1109,51 @@
     <script>
     let currentLang = 'en';
 
+async function updatePlayerStatus() {
+    const statusEl = document.getElementById('server-status');
+    const countEl = document.getElementById('player-count');
+    const dotEl = document.getElementById('status-indicator');
+    
+    const targetUrl = 'http://localhost:3450/'; 
+
+    try {
+        const response = await fetch(targetUrl, {
+            mode: 'cors',
+            cache: 'no-cache'
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const textData = await response.text(); 
+        const playerCount = parseInt(textData.trim(), 10);
+        
+        statusEl.innerText = 'Online';
+        statusEl.style.color = '#55ff55';
+        
+        dotEl.classList.remove('offline');
+        dotEl.classList.add('online');
+
+        countEl.innerText = isNaN(playerCount) ? '0' : playerCount; 
+
+    } catch (e) {
+        statusEl.innerText = 'Offline';
+        statusEl.style.color = '#ff5555';
+        
+        dotEl.classList.remove('online');
+        dotEl.classList.add('offline');
+        
+        countEl.innerText = '0';
+        
+        console.warn("[Stats] Could not reach server. Check CORS headers and port 3450.");
+    }
+}
+
+// Initial update
+updatePlayerStatus();
+
+// Refresh every 15 seconds so it updates when you join/leave
+setInterval(updatePlayerStatus, 15000);
+
     function switchTab(tabName) {
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
         document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
@@ -1120,6 +1229,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         applyMceIcons();
+        updatePlayerStatus(); // Initial check on load
+        setInterval(updatePlayerStatus, 30000); // Check every 30 seconds
     });
 </script>
 </body>
