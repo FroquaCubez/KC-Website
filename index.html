@@ -1114,7 +1114,7 @@ async function updatePlayerStatus() {
     const countEl = document.getElementById('player-count');
     const dotEl = document.getElementById('status-indicator');
     
-    const targetUrl = 'http://209.25.142.24:1037/'; 
+    const targetUrl = 'http://api.kowhaifan.net:1039/'; 
 
     try {
         const response = await fetch(targetUrl, {
@@ -1144,7 +1144,7 @@ async function updatePlayerStatus() {
         
         countEl.innerText = '0';
         
-        console.warn("[Stats] Could not reach server. Check CORS headers and port 1037.");
+        console.warn("[Stats] Could not reach server. Check CORS headers and port 1039.");
     }
 }
 
