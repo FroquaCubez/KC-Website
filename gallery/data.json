@@ -1,12 +1,77 @@
 [
-    {
-        "image": "gallery/minecraft.png",
-        "title": "The Minecraft Sign",
-        "description": "The minecraft sign built by the group effort of the community."
-    },
-    {
-        "image": "gallery/test.png",
-        "title": "test",
-        "description": "test"
-    }
+{
+"image": "gallery/minecraft.png",
+"title": "The Minecraft Sign",
+"description": "The minecraft sign built by the group effort of the community."
+},
+{
+"image": "gallery/bob.png",
+"title": "Bob the Bedrock",
+"description": "Bedrock placed in a past players home, he has seen all."
+},
+{
+"image": "gallery/4j_logo.png",
+"title": "4JStudios logo",
+"description": "4JStudios logo built by Buddy."
+},
+{
+"image": "gallery/statues.png",
+"title": "Admin Statues",
+"description": "Statues of each Administrator. The server wouldn't be where it is without them."
+},
+{
+"image": "gallery/complexian_house.png",
+"title": "Complexian's House",
+"description": "The house of Complexian, the mayor of oasis."
+},
+{
+"image": "gallery/pyramid.png",
+"title": "Pyramids of Oasis",
+"description": "One of the many pyramids of Oasis built by z1galoid."
+},
+{
+"image": "gallery/crafting_table.png",
+"title": "Sugarcane Farm",
+"description": "This is a giant crafting table in Oasis containing a sugarcane farm, it was built by complexian."
+},
+{
+"image": "gallery/legacity_sign.png",
+"title": "Legacities Sign",
+"description": "A sign built to invite players to Legactity."
+},
+{
+"image": "gallery/legacity_th.png",
+"title": "Legacities Town Hall",
+"description": "The town hall for legacity, it was built by Androtype, but the current mayor is Carpilicious."
+},
+{
+"image": "gallery/kow_house.png",
+"title": "Kowhaifan's House!",
+"description": "The house of the host, Kowhaifan. Surrounding it is a little public farm."
+},
+{
+"image": "gallery/gand_station.png",
+"title": "Gand Station.",
+"description": "The station connecting gand to the rest of the railway."
+},
+{
+"image": "gallery/nacho_house.png",
+"title": "Nachotaco's Modern House",
+"description": "This is Nachotaco's house. Your average Joe with a non-average house."
+},
+{
+"image": "gallery/border_villa.png",
+"title": "Border Villa",
+"description": "A small village bordering Gand made by lei1lei1. So cute!"
+},
+{
+"image": "gallery/end_house.png",
+"title": "House at the end of the world.",
+"description": "A house built by an unknown player in the end. Very atmospheric."
+},
+{
+"image": "gallery/mush_islands.png",
+"title": "Mushroom Island",
+"description": "One of the mushroom islands, the mayor is Vin."
+}
 ]
