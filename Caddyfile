@@ -1,0 +1,4 @@
+kowhaifan.net {
+    root * .
+    file_server
+}
