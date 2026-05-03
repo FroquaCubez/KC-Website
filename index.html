@@ -939,7 +939,7 @@
         const statusEl = document.getElementById('server-status');
         const countEl = document.getElementById('player-count');
         const dotEl = document.getElementById('status-indicator');
-        const targetUrl = 'http://api.kowhaifan.net:1039/'; 
+        const targetUrl = 'https://api.kowhaifan.net/'; 
 
         try {
             const response = await fetch(targetUrl, { mode: 'cors', cache: 'no-cache' });
@@ -964,7 +964,7 @@
     async function updateChat() {
         const chatBox = document.getElementById('chat-box');
         if (!chatBox) return;
-        const chatUrl = 'http://api.kowhaifan.net:1039/chat'; 
+        const chatUrl = 'https://api.kowhaifan.net/chat'; 
 
         try {
             const response = await fetch(chatUrl, { mode: 'cors', cache: 'no-cache' });

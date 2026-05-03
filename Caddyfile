@@ -1,11 +1,9 @@
-http://kowhaifan.net, http://222.154.172.154 {
+kowhaifan.net {
     root * .
     file_server
     encode zstd gzip
 }
 
-https://kowhaifan.net {
-    root * .
-    file_server
-    encode zstd gzip
+api.kowhaifan.net {
+    reverse_proxy localhost:10002
 }
